@@ -1,0 +1,8 @@
+.post__description {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    background-color: white;
+    padding: 25px 21px 31px 21px;
+}

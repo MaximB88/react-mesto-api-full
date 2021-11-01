@@ -1,0 +1,7 @@
+.popup__container_type_show {
+    box-sizing: border-box;
+    padding: 0;
+    width: auto;
+    border-radius: none;
+    background-color: transparent;
+}

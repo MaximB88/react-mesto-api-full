@@ -1,0 +1,9 @@
+.header__user-mail {
+    text-decoration: none;
+    color: #FFFFFF;
+    font-family: 'Inter';
+    font-weight: 500;
+    line-height: 22px;
+    font-size: 18px;
+    margin: 6px 24px 0 0;
+}

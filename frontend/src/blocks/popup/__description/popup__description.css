@@ -1,0 +1,7 @@
+.popup__description {
+    line-height: 14px;
+    font-size: 12px;
+    color: white;
+    align-self: flex-start;
+    margin: 10px 0 0 0;
+}

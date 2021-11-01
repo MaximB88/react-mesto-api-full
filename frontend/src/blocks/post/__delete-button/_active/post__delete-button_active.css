@@ -1,0 +1,5 @@
+.post__delete-button_active {
+    display: block;
+    visibility: visible;
+    opacity: 1;
+}

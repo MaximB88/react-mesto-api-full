@@ -1,0 +1,10 @@
+.post__title {
+    margin: 0;
+    line-height: 29px;
+    font-size: 24px;
+    font-weight: 900;
+    max-width: 210px;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+}

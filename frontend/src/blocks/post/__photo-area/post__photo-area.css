@@ -1,0 +1,7 @@
+.post__photo-area {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    max-width: 282px;
+    max-height: 282px;
+}
