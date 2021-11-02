@@ -1,5 +1,5 @@
 export const apiConfig = {
-    baseUrl: 'https://mesto.nomoreparties.co/v1/cohort-24'
+    baseUrl: 'https://api.place.nomoredomains.icu'
 }
 
 export const headers = {
