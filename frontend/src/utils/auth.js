@@ -1,4 +1,4 @@
-export const baseUrl = 'https://auth.nomoreparties.co'
+export const baseUrl = 'https://api.place.nomoredomains.icu'
 
 function checkResponse(res) {
     if(res.ok) {
@@ -38,6 +38,7 @@ export function authorization(email, password) {
 export function getToken(token) {
     return fetch(`${baseUrl}/users/me`, {
         headers: {
+            'Accept': 'application/json',
             'Content-Type': 'application/json',
             "Authorization": `Bearer ${token}`
         },
