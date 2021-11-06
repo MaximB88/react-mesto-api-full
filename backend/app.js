@@ -15,18 +15,16 @@ const { requestLogger, errorLogger } = require("./middlewares/logger");
 
 const { PORT = 3000 } = process.env;
 
-const NOT_FOUND = 404;
-
 mongoose.connect("mongodb://localhost:27017/mestodb", {
   useNewUrlParser: true,
 });
-
-app.use(express.json());
 
 app.use(cors());
 app.options("*", cors());
 
 app.use(requestLogger);
+
+app.use("/", express.json());
 
 app.post("/singin", celebrate({
   body: Joi.object().keys({
@@ -47,16 +45,17 @@ app.post("/signup", celebrate({
 }), createUser);
 
 app.use(auth);
-app.use("/", auth, usersRoute);
-app.use("/", auth, cardsRoute);
+app.use("/", usersRoute);
+app.use("/", cardsRoute);
+
+app.all("*", (req, res) => {
+  res.status(404).send({ message: `Страницы по адресу ${req.baseUrl} не существует` });
+});
 
 app.use(errorLogger);
 
-app.use("*", (req, res) => {
-  res.status(NOT_FOUND).send({ message: `Страницы по адресу ${req.baseUrl} не существует` });
-});
-app.use(errorHandler);
 app.use(errors());
+app.use(errorHandler);
 app.listen(PORT, () => {
   console.log(`App listening on port ${PORT}`);
 });
