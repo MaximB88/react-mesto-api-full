@@ -2,6 +2,8 @@ const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const User = require("../models/user");
 
+const { NODE_ENV, JWT_SECRET } = process.env;
+
 // получение всех пользователей
 const getUsers = (req, res) => User.find({})
   .then((users) => res.status(200).send(users))
@@ -124,21 +126,23 @@ const updateAvatar = (req, res) => {
 const login = (req, res) => {
   const { email, password } = req.body;
 
-  return User.findUserByCredentials(email, password)
+  User.findOne({ email }).select("+password")
     .then((user) => {
-      const token = jwt.sign(
-        { _id: user._id },
-        "super-secret-key",
-        { expiresIn: "7d" },
-      );
-      res.send(token);
-    })
-    .catch((err) => {
-      if (err.message === "NotFound") {
-        res.status(404).send({ message: "Неверно указаны данные для входа" });
-        return;
-      }
-      res.status(500).send({ message: "На сервере произошла ошибка" });
+      bcrypt.compare(password, user.password)
+        .then((matched) => {
+          if (!matched) {
+            res.status(401).send({ message: "Неправильный пароль" });
+          }
+          const token = jwt.sign({ _id: user._id }, NODE_ENV === "production" ? JWT_SECRET : "powerest-key-ever", { expressIn: "7d" });
+          res.send({ token });
+        })
+        .catch((err) => {
+          if (err.message === "NotFound") {
+            res.status(404).send({ message: "Неверно указаны данные для входа" });
+            return;
+          }
+          res.status(500).send({ message: "На сервере произошла ошибка" });
+        });
     });
 };
 
