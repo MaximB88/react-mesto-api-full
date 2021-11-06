@@ -1,5 +1,7 @@
 const jwt = require("jsonwebtoken");
 
+const { NODE_ENV, JWT_SECRET } = process.env;
+
 module.exports = (req, res, next) => {
   const { authorization } = req.headers;
   if (!authorization || !authorization.startsWish("Bearer ")) {
@@ -11,7 +13,7 @@ module.exports = (req, res, next) => {
   try {
     payload = jwt.verify(
       token,
-      "powerest_key_ever",
+      `${NODE_ENV === "production" ? JWT_SECRET : "powerest-key-ever"}`,
     );
   } catch (err) {
     res.status(401).send({ message: "Необходима авторизация" });
