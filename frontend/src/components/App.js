@@ -142,6 +142,7 @@ function App() {
     function handleLogin(email, password) {
         return auth.authorization(email, password)
             .then(res => {
+                console.log(res);
                 localStorage.setItem('token', res.token);
                 setLoggedIn(true);
                 setUserEmail(email);

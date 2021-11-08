@@ -1,4 +1,6 @@
 const express = require("express");
+// eslint-disable-next-line import/no-extraneous-dependencies
+require("dotenv").config();
 const mongoose = require("mongoose");
 const cors = require("cors");
 const { errors, celebrate, Joi } = require("celebrate");
@@ -45,8 +47,8 @@ app.post("/signup", celebrate({
 }), createUser);
 
 app.use(auth);
-app.use("/", usersRoute);
-app.use("/", cardsRoute);
+app.use("/", auth, usersRoute);
+app.use("/", auth, cardsRoute);
 
 app.all("*", (req, res) => {
   res.status(404).send({ message: `Страницы по адресу ${req.baseUrl} не существует` });
